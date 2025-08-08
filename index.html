@@ -19,37 +19,57 @@
             color: #e74c3c;
             margin: 20px;
         }
+        .time-unit {
+            display: inline-block;
+            min-width: 60px;
+        }
+        .time-label {
+            font-size: 0.5em;
+            color: #777;
+        }
     </style>
 </head>
 <body>
     <h1>Арсений не отвечает</h1>
-    <div id="timer">00:00:00</div>
+    <div id="timer">
+        <div class="time-unit">
+            <div id="days">00</div>
+            <div class="time-label">дни</div>
+        </div>
+        <div class="time-unit">
+            <div id="hours">00</div>
+            <div class="time-label">часов</div>
+        </div>
+        <div class="time-unit">
+            <div id="minutes">00</div>
+            <div class="time-label">минут</div>
+        </div>
+        <div class="time-unit">
+            <div id="seconds">00</div>
+            <div class="time-label">секунд</div>
+        </div>
+    </div>
 
     <script>
-        // 07.08.2025, 12:29
         const startDate = new Date("2025-08-07 12:29:00").getTime();
 
         function updateTimer() {
             const now = new Date().getTime();
             const diff = now - startDate;
-
-            // часы, минуты, секунды
-            const hours = Math.floor(diff / (1000 * 60 * 60));
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            // вывод
-            const formattedTime = 
-                String(hours).padStart(2, '0') + ":" +
-                String(minutes).padStart(2, '0') + ":" +
-                String(seconds).padStart(2, '0');
-
-            document.getElementById("timer").textContent = formattedTime;
+            
+            document.getElementById("days").textContent = String(days).padStart(2, '0');
+            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
         }
 
-        // интервал
         setInterval(updateTimer, 1000);
-        updateTimer(); // Запускаем сразу
+        updateTimer();
     </script>
 </body>
 </html>
