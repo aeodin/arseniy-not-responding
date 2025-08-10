@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -41,22 +42,69 @@
             opacity: 0.9;
         }
         
+        .waiting {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        .join-btn {
+            margin-top: 10px;
+            padding: 6px 12px;
+            background-color: #252422;
+            color: #fffcf2;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            transition: opacity 0.2s;
+        }
+        
+        .join-btn:hover {
+            opacity: 0.8;
+        }
+        
         @media (max-width: 400px) {
             h1, .timer { font-size: 22px; }
+            .waiting { font-size: 12px; }
         }
     </style>
 </head>
 <body>
     <h1>АРСЕНИЙ НЕ ОТВЕЧАЕТ</h1>
     <div class="timer" id="timer">00<span class="colon">:</span>00<span class="colon">:</span>00<span class="colon">:</span>00</div>
+    
+    <div class="waiting" id="waitingCounter">Арсения ждут 0 человек</div>
+    <button class="join-btn" id="joinButton">Я тоже жду!</button>
 
     <script>
         const startDate = new Date("2025-08-07 12:29:00").getTime();
+        let waitingCount = localStorage.getItem('waitingCount') || 0;
+        
+        document.getElementById('waitingCounter').textContent = 
+            `Арсения ждут ${waitingCount} ${getPeopleWord(waitingCount)}`;
+        
+        document.getElementById('joinButton').addEventListener('click', () => {
+            waitingCount++;
+            localStorage.setItem('waitingCount', waitingCount);
+            document.getElementById('waitingCounter').textContent = 
+                `Арсения ждут ${waitingCount} ${getPeopleWord(waitingCount)}`;
+        });
+        
+        function getPeopleWord(num) {
+            num = Math.abs(num) % 100;
+            const num1 = num % 10;
+            if (num > 10 && num < 20) return 'человек';
+            if (num1 > 1 && num1 < 5) return 'человека';
+            if (num1 === 1) return 'человек';
+            return 'человек';
+        }
 
         function updateTimer() {
             const now = new Date().getTime();
             const diff = now - startDate;
-          
+
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -65,6 +113,7 @@
             document.getElementById("timer").innerHTML = 
                 `${String(days).padStart(2, '0')}<span class="colon">:</span>${String(hours).padStart(2, '0')}<span class="colon">:</span>${String(minutes).padStart(2, '0')}<span class="colon">:</span>${String(seconds).padStart(2, '0')}`;
         }
+
         updateTimer();
         setInterval(updateTimer, 1000);
     </script>
