@@ -1,53 +1,86 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Арсений не отвечает</title>
+    <title>Sir Arseny doesn't respond</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'MedievalSharp', cursive;
             text-align: center;
-            background-color: #90be6d;
-            color: #577590;
+            background-color: #1a120b;
+            color: #d4a373;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
-            font-weight: 700;
+        }
+        
+        .plaque {
+            background-color: rgba(60, 42, 33, 0.8);
+            border: 8px ridge #d4a373;
+            padding: 30px;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            backdrop-filter: blur(3px);
+        }
+        
+        .mutant-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border: 5px solid #5e3023;
+            margin-bottom: 20px;
+            filter: sepia(50%) contrast(110%) brightness(90%);
         }
         
         h1 {
-            font-size: 42px;
-            margin: 0 0 10px 0;
-            letter-spacing: -0.5px;
+            font-size: 2.5rem;
+            margin: 10px 0;
+            color: #d4a373;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
         }
         
         .timer {
-            font-size: 42px;
-            letter-spacing: 1px;
-            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            color: #d4a373;
+            margin: 20px 0;
         }
         
         .colon {
-            opacity: 0.8;
+            animation: blink 1s step-end infinite;
         }
         
-        @media (max-width: 400px) {
-            h1 { font-size: 28px; }
-            .timer { font-size: 32px; }
+        @keyframes blink {
+            50% { opacity: 0.3; }
+        }
+        
+        @media (max-width: 500px) {
+            h1 { font-size: 2rem; }
+            .timer { font-size: 1.8rem; }
+            .mutant-image {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>АРСЕНИЙ НЕ ОТВЕЧАЕТ</h1>
-    <div class="timer" id="timer">00<span class="colon">:</span>00<span class="colon">:</span>00<span class="colon">:</span>00</div>
+    <div class="plaque">
+        <img src="https://i.pinimg.com/originals/71/e2/86/71e286a486bdf3233aa7e8e01834b71e.png" class="mutant-image" alt="Medieval mutant">
+        
+        <h1>Sir Arseny doesn't respond</h1>
+        <div class="timer" id="timer">00<span class="colon">:</span>00<span class="colon">:</span>00<span class="colon">:</span>00</div>
+    </div>
 
     <script>
         const startDate = new Date("2025-08-07 12:29:00").getTime();
